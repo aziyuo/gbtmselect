@@ -1,0 +1,14 @@
+Package: gbtmselect
+Type: Package
+Title: The Select Table Of Group-Based Trajectory Model
+Version: 1.1.0
+Author: Yvet
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: After using SAS "Traj" program, we may get lots of files, and the aim of the package is to converge them and form a select table which can be used to put in your final paper.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    tidyverse,
+    haven
+RoxygenNote: 7.2.2
