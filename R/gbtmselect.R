@@ -73,14 +73,17 @@ gbtmselect=function(files_oe,files_of,files_os){
     mutate(i=nchar(order)) %>% arrange(i) %>% select(-i)
   of_4=of %>% group_by(order) %>% filter(GROUP==4) %>% select(order,GRP4PRB) %>% summarise(round(mean(GRP4PRB),2)) %>%
     mutate(i=nchar(order)) %>% arrange(i) %>% select(-i)
+  of_5=of %>% group_by(order) %>% filter(GROUP==5) %>% select(order,GRP5PRB) %>% summarise(round(mean(GRP5PRB),2)) %>% 
+    mutate(i=nchar(order)) %>% arrange(i) %>% select(-i)
 
-  of_sum=of_1 %>% left_join(of_2,by="order") %>% left_join(of_3,by="order") %>% left_join(of_4,by="order")
+  of_sum=of_1 %>% left_join(of_2,by="order") %>% left_join(of_3,by="order") %>% left_join(of_4,by="order") %>% left_join(of_5,by="order")
 
   of_sum_1=of_sum %>% select(1,2) %>% mutate(per=`round(mean(GRP1PRB), 2)`) %>% select(-2)
   of_sum_2=of_sum %>% select(1,3) %>% mutate(per=`round(mean(GRP2PRB), 2)`) %>% select(-2)
   of_sum_3=of_sum %>% select(1,4) %>% mutate(per=`round(mean(GRP3PRB), 2)`) %>% select(-2)
   of_sum_4=of_sum %>% select(1,5) %>% mutate(per=`round(mean(GRP4PRB), 2)`) %>% select(-2)
-  of_sum=rbind(of_sum_1,of_sum_2,of_sum_3,of_sum_4)
+  of_sum_5=of_sum %>% select(1,6) %>% mutate(per=`round(mean(GRP5PRB), 2)`) %>% select(-2)
+  of_sum=rbind(of_sum_1,of_sum_2,of_sum_3,of_sum_4,of_sum_5)
   of_sum=of_sum %>% filter(!is.na(per))
 
   of_sum=of_sum %>% group_by(order) %>% summarise(Group_percentage=str_c(per[!is.na(per)],collapse = "/")) %>%
